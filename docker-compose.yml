@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  web:
+    container_name: web
+    hostname: web
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    volumes:
+      - ./src/web:/app
+    ports:
+      - 3000:5173
+    depends_on:
+      - api
+
+  api:
+    container_name: api
+    hostname: api
+    build:
+      context: .
+      dockerfile: ./docker/api/Dockerfile
+    volumes:
+      - ./src/api:/app
+    ports:
+      - 3001:3001
+    depends_on:
+      - database
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_PASSWORD}
+
+  database:
+    container_name: database
+    hostname: database
+    image: mysql:8.0.23
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+    ports:
+      - 3306:3306
+    volumes:
+      - ./docker/database:/docker-entrypoint-initdb.d:rw
