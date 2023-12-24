@@ -12,24 +12,30 @@ export default class GetArticleMysql implements GetArticleRepository {
   }
 
   async getArticle(id: number): Promise<Article> {
-    const article = this.db.article.findUnique({
+    const article = await this.db.article.findUnique({
       where: {
         id,
+        deletedAt: null,
       },
       include: {
         author: true,
         category: true,
       },
     })
+
+    if (!article) {
+      throw new Error("Article not found.")
+    }
+
     const category = new Category(
       article.category.id,
       article.category.name,
-      article.category.createdAt,
+      article.category.createdAt.toDateString(),
     )
     const author = new Author(
       article.author.id,
       article.author.name,
-      article.author.createdAt,
+      article.author.createdAt.toDateString(),
     )
     return new Article(
       article.id,
@@ -37,6 +43,8 @@ export default class GetArticleMysql implements GetArticleRepository {
       article.content,
       category,
       author,
+      article.createdAt.toDateString(),
+      article.deletedAt?.toDateString(),
     )
   }
 }

@@ -27,25 +27,42 @@ export default class UpdateArticleMysql implements UpdateArticleRepository {
         categoryId,
       },
     })
-    const article = this.db.article.findUnique({
+
+    const article = await this.db.article.findUnique({
       where: {
         id,
+        deletedAt: null,
       },
       include: {
         author: true,
         category: true,
       },
     })
+
+    if (!article) {
+      throw new Error("Article not found.")
+    }
+
     const category = new Category(
       article.category.id,
       article.category.name,
-      article.category.createdAt,
+      article.category.createdAt.toDateString(),
+      article.category.deletedAt?.toDateString(),
     )
     const author = new Author(
       article.author.id,
       article.author.name,
-      article.author.createdAt,
+      article.author.createdAt.toDateString(),
+      article.author.deletedAt?.toDateString(),
     )
-    return new Article(article.id, title, content, category, author)
+    return new Article(
+      article.id,
+      title,
+      content,
+      category,
+      author,
+      article.createdAt.toDateString(),
+      article.deletedAt?.toDateString(),
+    )
   }
 }

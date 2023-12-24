@@ -2,7 +2,7 @@ import { CreateArticleRepository } from "../application/repositories/article-rep
 import Article from "../domain/article"
 import Author from "../domain/author"
 import Category from "../domain/category"
-import { PrismaClient } from "@prisma/client"
+import { Prisma, PrismaClient } from "@prisma/client"
 
 export default class CreateArticleMysql implements CreateArticleRepository {
   private db
@@ -17,14 +17,28 @@ export default class CreateArticleMysql implements CreateArticleRepository {
     category: Category,
     author: Author,
   ): Promise<Article> {
-    const article = await this.db.article.create({
-      data: {
-        title,
-        content,
-        categoryId: category.id,
-        authorId: author.id,
-      },
-    })
-    return new Article(article.id, title, content, category, author)
+    if (!category.id) {
+      throw new Error("Invalid category.")
+    }
+    if (!author.id) {
+      throw new Error("Invalid author.")
+    }
+
+    const articleInput: Prisma.ArticleUncheckedCreateInput = {
+      title,
+      content,
+      categoryId: category.id,
+      authorId: author.id,
+    }
+    const article = await this.db.article.create({ data: articleInput })
+    return new Article(
+      article.id,
+      title,
+      content,
+      category,
+      author,
+      article.createdAt.toDateString(),
+      article.deletedAt?.toDateString(),
+    )
   }
 }

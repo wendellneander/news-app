@@ -9,9 +9,13 @@ export default class DeleteArticleMysql implements DeleteArticleRepository {
   }
 
   async deleteArticle(id: number): Promise<void> {
-    this.db.article.delete({
+    await this.db.article.update({
       where: {
         id,
+        deletedAt: null,
+      },
+      data: {
+        deletedAt: new Date(),
       },
     })
   }

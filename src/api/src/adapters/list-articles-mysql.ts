@@ -12,9 +12,12 @@ export default class ListArticlesMysql implements ListArticlesRepository {
   }
 
   async listArticles(page: number, pageSize: number): Promise<Article[]> {
-    const articles = this.db.article.findMany({
+    const articles = await this.db.article.findMany({
       skip: page * pageSize,
       take: pageSize,
+      where: {
+        deletedAt: null,
+      },
       include: {
         author: true,
         category: true,
@@ -25,12 +28,14 @@ export default class ListArticlesMysql implements ListArticlesRepository {
       const category = new Category(
         article.category.id,
         article.category.name,
-        article.category.createdAt,
+        article.category.createdAt.toDateString(),
+        article.category.deletedAt?.toDateString(),
       )
       const author = new Author(
         article.author.id,
         article.author.name,
-        article.author.createdAt,
+        article.author.createdAt.toDateString(),
+        article.author.deletedAt?.toDateString(),
       )
       return new Article(
         article.id,
@@ -38,6 +43,8 @@ export default class ListArticlesMysql implements ListArticlesRepository {
         article.content,
         category,
         author,
+        article.createdAt.toDateString(),
+        article.deletedAt?.toDateString(),
       )
     })
   }
