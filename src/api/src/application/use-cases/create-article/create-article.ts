@@ -1,6 +1,6 @@
-import { CreateArticleRepository } from "../../contracts/article-repository"
-import { GetAuthorRepository } from "../../contracts/author-repository"
-import { GetCategoryRepository } from "../../contracts/category-repository"
+import { CreateArticleRepository } from "../../repositories/article-repository"
+import { GetAuthorRepository } from "../../repositories/author-repository"
+import { GetCategoryRepository } from "../../repositories/category-repository"
 import CreateArticleInput from "./create-article-input"
 import CreateArticleOutput from "./create-article-ouput"
 

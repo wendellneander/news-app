@@ -1,4 +1,4 @@
-import { DeleteArticleRepository } from "../application/contracts/article-repository"
+import { DeleteArticleRepository } from "../application/repositories/article-repository"
 import { PrismaClient } from "@prisma/client"
 
 export default class DeleteArticleMysql implements DeleteArticleRepository {

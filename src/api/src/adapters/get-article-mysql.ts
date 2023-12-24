@@ -1,4 +1,4 @@
-import { GetArticleRepository } from "../application/contracts/article-repository"
+import { GetArticleRepository } from "../application/repositories/article-repository"
 import { PrismaClient } from "@prisma/client"
 import Article from "../domain/article"
 import Category from "../domain/category"

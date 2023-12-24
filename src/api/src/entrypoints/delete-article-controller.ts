@@ -1,4 +1,4 @@
-import { DeleteArticleRepository } from "../application/contracts/article-repository"
+import { DeleteArticleRepository } from "../application/repositories/article-repository"
 import DeleteArticle from "../application/use-cases/delete-article/delete-article"
 import DeleteArticleInput from "../application/use-cases/delete-article/delete-article-input"
 import { Request, Response } from "express"

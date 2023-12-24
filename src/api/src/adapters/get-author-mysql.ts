@@ -1,4 +1,4 @@
-import { GetAuthorRepository } from "../application/contracts/author-repository"
+import { GetAuthorRepository } from "../application/repositories/author-repository"
 import Author from "../domain/author"
 
 export default class GetAuthorMysql implements GetAuthorRepository {

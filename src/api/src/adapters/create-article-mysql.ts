@@ -1,4 +1,4 @@
-import { CreateArticleRepository } from "../application/contracts/article-repository"
+import { CreateArticleRepository } from "../application/repositories/article-repository"
 import Article from "../domain/article"
 import Author from "../domain/author"
 import Category from "../domain/category"

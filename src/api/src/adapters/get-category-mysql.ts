@@ -1,4 +1,4 @@
-import { GetCategoryRepository } from "../application/contracts/category-repository"
+import { GetCategoryRepository } from "../application/repositories/category-repository"
 import Category from "../domain/category"
 
 export default class GetCategoryMysql implements GetCategoryRepository {

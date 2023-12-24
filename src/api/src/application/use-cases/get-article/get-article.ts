@@ -1,4 +1,4 @@
-import { GetArticleRepository } from "../../contracts/article-repository"
+import { GetArticleRepository } from "../../repositories/article-repository"
 import GetArticleInput from "./get-article-input"
 import GetArticleOutput from "./get-article-ouput"
 

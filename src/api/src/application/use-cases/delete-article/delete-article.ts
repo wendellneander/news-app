@@ -1,4 +1,4 @@
-import { DeleteArticleRepository } from "../../contracts/article-repository"
+import { DeleteArticleRepository } from "../../repositories/article-repository"
 import DeleteArticleInput from "./delete-article-input"
 import DeleteArticleOutput from "./delete-article-ouput"
 

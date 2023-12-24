@@ -1,4 +1,4 @@
-import { GetArticleRepository } from "../application/contracts/article-repository"
+import { GetArticleRepository } from "../application/repositories/article-repository"
 import GetArticle from "../application/use-cases/get-article/get-article"
 import GetArticleInput from "../application/use-cases/get-article/get-article-input"
 import { Request, Response } from "express"
