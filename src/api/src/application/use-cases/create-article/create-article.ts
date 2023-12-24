@@ -1,6 +1,6 @@
 import { CreateArticleRepository } from "../../contracts/article-repository"
-import GetAuthorRepository from "../../contracts/author-repository"
-import GetCategoryRepository from "../../contracts/category-repository"
+import { GetAuthorRepository } from "../../contracts/author-repository"
+import { GetCategoryRepository } from "../../contracts/category-repository"
 import CreateArticleInput from "./create-article-input"
 import CreateArticleOutput from "./create-article-ouput"
 
@@ -25,7 +25,7 @@ export default class CreateArticle {
     if (!author) {
       throw new Error("Author not found.")
     }
-
+    console.log("AUTHOR", author)
     const article = await this.createArticleRepository.createArticle(
       input.title,
       input.content,
@@ -34,7 +34,18 @@ export default class CreateArticle {
     )
 
     return {
-      article,
+      id: article.id,
+      title: article.title,
+      content: article.content,
+      category: {
+        id: article.category.id,
+        name: article.category.name,
+      },
+      author: {
+        id: article.author.id,
+        name: article.author.name,
+      },
+      createdAt: article.createdAt,
     }
   }
 }

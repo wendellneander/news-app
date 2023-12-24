@@ -7,6 +7,6 @@
     "strict": true,
     "esModuleInterop": true
   },
-  "include": ["*.ts"],
+  "include": ["*.ts", "./.eslintrc.js", "./jest.config.js"],
   "exclude": ["node_modules"]
 }

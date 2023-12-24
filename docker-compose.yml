@@ -1,6 +1,25 @@
 version: "3.9"
 
+networks:
+  dev:
+    driver: bridge
+
 services:
+  mysql:
+    container_name: mysql
+    hostname: mysql
+    image: mysql:8.0.23
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+    ports:
+      - 3306:3306
+    volumes:
+      - ./docker/mysql:/docker-entrypoint-initdb.d:rw
+    networks:
+      - dev
+
   web:
     container_name: web
     hostname: web
@@ -13,6 +32,8 @@ services:
       - 3000:5173
     depends_on:
       - api
+    networks:
+      - dev
 
   api:
     container_name: api
@@ -25,23 +46,12 @@ services:
     ports:
       - 3001:3001
     depends_on:
-      - database
+      - mysql
     environment:
       - DB_HOST=${DB_HOST}
       - DB_PORT=${DB_PORT}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_DATABASE=${DB_PASSWORD}
-
-  database:
-    container_name: database
-    hostname: database
-    image: mysql:8.0.23
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_DATABASE}
-    ports:
-      - 3306:3306
-    volumes:
-      - ./docker/database:/docker-entrypoint-initdb.d:rw
+    networks:
+      - dev

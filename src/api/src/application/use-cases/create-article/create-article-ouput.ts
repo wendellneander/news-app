@@ -1,5 +1,14 @@
-import Article from "../../../domain/entities/article";
-
 export default interface CreateArticleOutput {
-    article: Article
+  id: number | undefined
+  title: string
+  content: string
+  category: {
+    id: number | undefined
+    name: string
+  }
+  author: {
+    id: number | undefined
+    name: string
+  }
+  createdAt: string | undefined
 }

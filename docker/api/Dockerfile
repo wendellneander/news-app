@@ -16,6 +16,9 @@ ADD ./src/api/package.json .
 RUN yarn install
 ADD ./src/api .
 
+# Run database migrations
+RUN yarn prisma migrate dev --name init
+
 # Define workdir and permissions
 WORKDIR /app
 RUN chown node:node /app
