@@ -13,21 +13,24 @@ export default class UpdateArticleController {
   ) {}
 
   handle = async (req: Request, res: Response): Promise<Response> => {
-    const input = new UpdateArticleInput(
-      parseInt(req.params.id),
-      req.body.title,
-      req.body.content,
-      req.body.categoryId,
-    )
+    try {
+      const input = new UpdateArticleInput(
+        parseInt(req.params.id),
+        req.body.title,
+        req.body.content,
+        req.body.categoryId,
+      )
 
-    const useCase = new UpdateArticle(
-      this.updateArticleRepository,
-      this.getCategoryRepository,
-      this.getAuthorRepository,
-    )
+      const useCase = new UpdateArticle(
+        this.updateArticleRepository,
+        this.getCategoryRepository,
+        this.getAuthorRepository,
+      )
 
-    const result = await useCase.execute(input)
-
-    return res.send(result)
+      const result = await useCase.execute(input)
+      return res.status(200).send(result)
+    } catch (e) {
+      return res.status(400).send(e)
+    }
   }
 }

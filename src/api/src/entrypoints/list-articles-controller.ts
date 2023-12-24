@@ -7,12 +7,16 @@ export default class ListArticlesController {
   constructor(private listArticleRepository: ListArticlesRepository) {}
 
   handle = async (req: Request, res: Response): Promise<Response> => {
-    const input = new ListArticlesInput(
-      parseInt(req.body.page),
-      parseInt(req.body.pageSize),
-    )
-    const useCase = new ListArticles(this.listArticleRepository)
-    const result = await useCase.execute(input)
-    return res.send(result)
+    try {
+      const input = new ListArticlesInput(
+        parseInt(req.body.page),
+        parseInt(req.body.pageSize),
+      )
+      const useCase = new ListArticles(this.listArticleRepository)
+      const result = await useCase.execute(input)
+      return res.status(200).send(result)
+    } catch (e) {
+      return res.status(400).send(e)
+    }
   }
 }

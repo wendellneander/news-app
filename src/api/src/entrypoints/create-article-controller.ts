@@ -13,21 +13,24 @@ export default class CreateArticleController {
   ) {}
 
   handle = async (req: Request, res: Response): Promise<Response> => {
-    const input = new CreateArticleInput(
-      req.body.title,
-      req.body.content,
-      req.body.categoryId,
-      req.body.authorId,
-    )
+    try {
+      const input = new CreateArticleInput(
+        req.body.title,
+        req.body.content,
+        req.body.categoryId,
+        req.body.authorId,
+      )
 
-    const useCase = new CreateArticle(
-      this.createArticleRepository,
-      this.getCategoryRepository,
-      this.getAuthorRepository,
-    )
+      const useCase = new CreateArticle(
+        this.createArticleRepository,
+        this.getCategoryRepository,
+        this.getAuthorRepository,
+      )
 
-    const result = await useCase.execute(input)
-
-    return res.send(result)
+      const result = await useCase.execute(input)
+      return res.status(201).send(result)
+    } catch (e) {
+      return res.status(400).send(e)
+    }
   }
 }
