@@ -25,7 +25,7 @@ export default class CreateArticle {
     if (!author) {
       throw new Error("Author not found.")
     }
-    console.log("AUTHOR", author)
+
     const article = await this.createArticleRepository.createArticle(
       input.title,
       input.content,
