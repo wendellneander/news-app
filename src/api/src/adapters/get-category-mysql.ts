@@ -1,5 +1,5 @@
 import { GetCategoryRepository } from "../application/contracts/category-repository"
-import Category from "../domain/entities/category"
+import Category from "../domain/category"
 
 export default class GetCategoryMysql implements GetCategoryRepository {
   async getCategory(id: number): Promise<Category> {

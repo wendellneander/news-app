@@ -1,4 +1,4 @@
-import Category from "../../domain/entities/category"
+import Category from "../../domain/category"
 
 export interface GetCategoryRepository {
   getCategory: (id: number) => Promise<Category>

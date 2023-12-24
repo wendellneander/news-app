@@ -1,6 +1,6 @@
-import Article from "../../domain/entities/article"
-import Author from "../../domain/entities/author"
-import Category from "../../domain/entities/category"
+import Article from "../../domain/article"
+import Author from "../../domain/author"
+import Category from "../../domain/category"
 
 export interface CreateArticleRepository {
   createArticle: (

@@ -1,5 +1,5 @@
 import { GetAuthorRepository } from "../application/contracts/author-repository"
-import Author from "../domain/entities/author"
+import Author from "../domain/author"
 
 export default class GetAuthorMysql implements GetAuthorRepository {
   async getAuthor(id: number): Promise<Author> {
