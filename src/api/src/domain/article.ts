@@ -2,6 +2,8 @@ import Author from "./author"
 import Category from "./category"
 
 export default class Article {
+  // TODO: add article url
+
   constructor(
     readonly id: number | undefined,
     readonly title: string,

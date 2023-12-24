@@ -25,7 +25,6 @@ export default class CreateArticleMysql implements CreateArticleRepository {
         authorId: author.id,
       },
     })
-    console.log("ARTICLE", article)
     return new Article(article.id, title, content, category, author)
   }
 }

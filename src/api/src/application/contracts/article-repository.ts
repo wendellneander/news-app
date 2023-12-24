@@ -30,6 +30,6 @@ export interface ListArticleRepository {
   listArticles: () => Promise<Article[]>
 }
 
-export default interface GetArticleRepository {
+export interface GetArticleRepository {
   getArticle: (id: number) => Promise<Article>
 }
