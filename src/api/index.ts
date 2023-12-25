@@ -23,6 +23,8 @@ app.post("/article", createArticleController.handle)
 app.patch("/article/:id", updateArticleController.handle)
 app.delete("/article/:id", deleteArticleController.handle)
 
+app.get("/", (_req, res) => res.status(200).send())
+
 app.listen(port, () => {
   console.log(`Api is running at http://localhost:${port}`)
 })

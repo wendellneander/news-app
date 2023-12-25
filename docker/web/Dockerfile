@@ -1,5 +1,4 @@
 FROM node:21.4-bullseye
-# LABEL maintainer="DevOps"
 
 # Environment Variables
 ENV NODE_ENV=dev

@@ -26,6 +26,6 @@ fi
 
 # Run prisma migration
 >&2 echo "Running migrations..."
-cd /app && yarn prisma migrate dev --name init && yarn prisma db seed && yarn prisma db studio
+cd /app && yarn prisma migrate dev --name init && yarn prisma db seed
 
 exec "$@"
