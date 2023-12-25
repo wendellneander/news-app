@@ -21,7 +21,7 @@ export default class UpdateArticle {
       throw new Error("Category not found.")
     }
 
-    const author = await this.getAuthorRepository.getAuthor(input.authorId)
+    const author = await this.getAuthorRepository.getAuthor(input.id)
     if (!author) {
       throw new Error("Author not found.")
     }

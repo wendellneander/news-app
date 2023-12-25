@@ -12,8 +12,11 @@ export default class DeleteArticleController {
       const useCase = new DeleteArticle(this.deleteArticleRepository)
       const result = await useCase.execute(input)
       return res.status(200).send(result)
-    } catch (e) {
-      return res.status(400).send(e)
+    } catch (e: any) {
+      console.log("ERROR (DeleteArticleController):", e)
+      return res.status(400).send({
+        message: e.message,
+      })
     }
   }
 }

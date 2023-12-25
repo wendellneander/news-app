@@ -29,8 +29,11 @@ export default class CreateArticleController {
 
       const result = await useCase.execute(input)
       return res.status(201).send(result)
-    } catch (e) {
-      return res.status(400).send(e)
+    } catch (e: any) {
+      console.log("ERROR (CreateArticleController):", e)
+      return res.status(400).send({
+        message: e.message,
+      })
     }
   }
 }

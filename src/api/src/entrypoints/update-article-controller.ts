@@ -29,8 +29,11 @@ export default class UpdateArticleController {
 
       const result = await useCase.execute(input)
       return res.status(200).send(result)
-    } catch (e) {
-      return res.status(400).send(e)
+    } catch (e: any) {
+      console.log("ERROR (UpdateArticleController):", e)
+      return res.status(400).send({
+        message: e.message,
+      })
     }
   }
 }

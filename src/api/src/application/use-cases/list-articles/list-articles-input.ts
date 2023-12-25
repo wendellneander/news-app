@@ -5,7 +5,7 @@ export default class ListArticlesInput {
   ) {}
 
   validate() {
-    if (!this.page) {
+    if (this.page !== 0 && this.page) {
       throw new Error("Page is required.")
     }
 
