@@ -4,17 +4,22 @@ FROM node:21.4-bullseye
 # Environment Variables
 ENV NODE_ENV=dev
 
-# Add Packages and Install
-ADD ./src/web/package.json .
-RUN yarn install
-ADD ./src/web .
+# Install yarn and vite
+RUN yarn global add yarn@latest
+RUN yarn global add ts-node@latest
+RUN yarn global add nodemon
+RUN yarn global add vite@latest
 
-# Install vite
-RUN yarn global add vite
-
-# Define workdir and permissions
+# Define workdir
 WORKDIR /app
-RUN chown node:node /app
+
+# Add entrypoint
+ADD ./docker/web/script/docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
+
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
+
+# Set user
 USER node
 
 # Run Script
