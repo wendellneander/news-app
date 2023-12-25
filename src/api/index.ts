@@ -1,4 +1,5 @@
 import express from "express"
+import bodyParser from "body-parser"
 import GetArticleControllerFactory from "./src/entrypoints/get-article-controller-factory"
 import ListArticlesControllerFactory from "./src/entrypoints/list-articles-controller-factory"
 import CreateArticleControllerFactory from "./src/entrypoints/create-article-controller-factory"
@@ -8,13 +9,15 @@ import DeleteArticleControllerFactory from "./src/entrypoints/delete-article-con
 const app = express()
 const port = process.env.API_PORT
 
+app.use(bodyParser.json())
+
 const listArticlesController = ListArticlesControllerFactory.create()
 const getArticleController = GetArticleControllerFactory.create()
 const createArticleController = CreateArticleControllerFactory.create()
 const updateArticleController = UpdateArticleControllerFactory.create()
 const deleteArticleController = DeleteArticleControllerFactory.create()
 
-app.get("/article", listArticlesController.handle)
+app.get("/articles", listArticlesController.handle)
 app.get("/article/:id", getArticleController.handle)
 app.post("/article", createArticleController.handle)
 app.patch("/article/:id", updateArticleController.handle)

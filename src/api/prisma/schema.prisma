@@ -12,7 +12,7 @@ model Author {
   name      String
   createdAt DateTime  @default(now())
   deletedAt DateTime?
-  Article   Article[]
+  articles   Article[]
 }
 
 model Category {
@@ -20,7 +20,7 @@ model Category {
   name      String
   createdAt DateTime  @default(now())
   deletedAt DateTime?
-  Article   Article[]
+  articles  Article[]
 }
 
 model Article {
