@@ -23,7 +23,7 @@ export default class ListArticlesMysql implements ListArticlesRepository {
         category: true,
       },
       orderBy: {
-        createdAt: "desc",
+        id: "desc",
       },
     })
 
