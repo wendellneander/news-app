@@ -1,16 +1,21 @@
 import React from "react";
 import "./Categories.css";
+import { useCategoriesContext } from "../../contexts/categories";
 
 const Categories: React.FC = () => {
-  const categories = ["Política", "Esportes", "Entretenimento", "Tecnologia"];
-
+  const { categories, error, isLoading } = useCategoriesContext();
   return (
     <div className="categories">
-      {categories.map((category, index) => (
-        <div key={index} className="category-item">
-          {category}
-        </div>
-      ))}
+      {isLoading && <p>Loading...</p>}
+      {error && <p>{error.message}</p>}
+      {categories &&
+        !isLoading &&
+        !error &&
+        categories.map((category) => (
+          <div key={category.id} className="category-item">
+            {category.name}
+          </div>
+        ))}
     </div>
   );
 };

@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { SidebarContext } from "../../contexts/sidebar";
 import "./Sidebar.css";
+import { useCategoriesContext } from "../../contexts/categories";
 
 const Sidebar: React.FC = () => {
   const { showSidebar, toggleSidebar } = useContext(SidebarContext);
-  const categories = ["Política", "Esportes", "Entretenimento", "Tecnologia"];
+  const { categories, error, isLoading } = useCategoriesContext();
 
   return (
     <div>
@@ -13,11 +14,16 @@ const Sidebar: React.FC = () => {
           <span className="material-symbols-outlined">close</span>
         </button>
         <ul>
-          {categories.map((category, index) => (
-            <li key={index} className="sidebar-item">
-              {category}
-            </li>
-          ))}
+          {isLoading && <p>Loading...</p>}
+          {error && <p>{error.message}</p>}
+          {categories &&
+            !isLoading &&
+            !error &&
+            categories.map((category) => (
+              <li key={category.id} className="sidebar-item">
+                {category.name}
+              </li>
+            ))}
         </ul>
       </div>
     </div>

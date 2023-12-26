@@ -1,23 +1,19 @@
+import Article from "../../types/article";
 import "./ArticleItem.css";
 
-interface ArticleItemProps {
-  id: number;
-  title: string;
-  content: string;
-  url: string;
-  author: string;
-  createdAt: string;
-}
-
-const ArticleItem = (props: ArticleItemProps) => {
+const ArticleItem = (article: Article) => {
+  const contentText =
+    article.content.length > 150
+      ? `${article.content.substring(0, 150)}...`
+      : article.content;
   return (
-    <div key={props.id} className="article-card">
-      <a href={`/article/${props.url}`}>
-        <h2 className="article-title">{props.title}</h2>
-        <p className="article-content">{props.content}</p>
+    <div key={article.id} className="article-card">
+      <a href={`/article/${article.url}`}>
+        <h2 className="article-title">{article.title}</h2>
+        <p className="article-content">{contentText}</p>
         <div className="article-footer">
           <p>
-            {props.author} - {props.createdAt}
+            {article.author.name} - {article.createdAt}
           </p>
         </div>
       </a>
