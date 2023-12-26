@@ -1,5 +1,6 @@
 import express from "express"
 import bodyParser from "body-parser"
+import cors from "cors"
 import GetArticleControllerFactory from "./src/entrypoints/get-article-controller-factory"
 import ListArticlesControllerFactory from "./src/entrypoints/list-articles-controller-factory"
 import CreateArticleControllerFactory from "./src/entrypoints/create-article-controller-factory"
@@ -10,6 +11,7 @@ import ListCategoriesControllerFactory from "./src/entrypoints/list-categories-c
 const app = express()
 const port = process.env.API_PORT
 
+app.use(cors())
 app.use(bodyParser.json())
 
 const listArticlesController = ListArticlesControllerFactory.create()
