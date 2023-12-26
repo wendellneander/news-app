@@ -1,0 +1,25 @@
+.categories {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #ccc;
+}
+
+.category-item {
+  padding: 8px 16px;
+  margin: 0 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.category-item:hover {
+  background-color: #ebebeb;
+}
+
+@media screen and (max-width: 688px) {
+  .categories {
+    display: none;
+  }
+}

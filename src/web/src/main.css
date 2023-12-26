@@ -1,0 +1,25 @@
+body {
+  font-family: "Times New Roman", Times, serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.app {
+  margin: 0 auto;
+  padding: 16px;
+  width: 70%;
+}
+
+@media screen and (max-width: 1159px) {
+  .app {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 688px) {
+  .app {
+    width: 100%;
+    padding: 0;
+  }
+}
