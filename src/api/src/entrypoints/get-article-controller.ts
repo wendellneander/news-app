@@ -8,7 +8,7 @@ export default class GetArticleController {
 
   handle = async (req: Request, res: Response): Promise<Response> => {
     try {
-      const input = new GetArticleInput(parseInt(req.params.id))
+      const input = new GetArticleInput(req.params.slug)
       const useCase = new GetArticle(this.getArticleRepository)
       const result = await useCase.execute(input)
       return res.status(200).send(result)

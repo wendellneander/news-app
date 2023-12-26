@@ -8,10 +8,10 @@ export default class DeleteArticleMysql implements DeleteArticleRepository {
     this.db = new PrismaClient()
   }
 
-  async deleteArticle(id: number): Promise<void> {
+  async deleteArticle(slug: string): Promise<void> {
     await this.db.article.update({
       where: {
-        id,
+        slug,
         deletedAt: null,
       },
       data: {

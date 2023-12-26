@@ -8,7 +8,7 @@ export default class DeleteArticleController {
 
   handle = async (req: Request, res: Response): Promise<Response> => {
     try {
-      const input = new DeleteArticleInput(parseInt(req.params.id))
+      const input = new DeleteArticleInput(req.params.slug)
       const useCase = new DeleteArticle(this.deleteArticleRepository)
       const result = await useCase.execute(input)
       return res.status(200).send(result)

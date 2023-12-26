@@ -8,7 +8,7 @@ const ArticleItem = (article: Article) => {
       : article.content;
   return (
     <div key={article.id} className="article-card">
-      <a href={`/article/${article.url}`}>
+      <a href={`/article/${article.slug}`}>
         <h2 className="article-title">{article.title}</h2>
         <p className="article-content">{contentText}</p>
         <div className="article-footer">

@@ -23,10 +23,10 @@ const listCategoriesController = ListCategoriesControllerFactory.create()
 
 app.get("/categories", listCategoriesController.handle)
 app.get("/articles", listArticlesController.handle)
-app.get("/article/:id", getArticleController.handle)
+app.get("/article/:slug", getArticleController.handle)
 app.post("/article", createArticleController.handle)
-app.patch("/article/:id", updateArticleController.handle)
-app.delete("/article/:id", deleteArticleController.handle)
+app.patch("/article/:slug", updateArticleController.handle)
+app.delete("/article/:slug", deleteArticleController.handle)
 
 app.get("/", (_req, res) => res.status(200).send())
 

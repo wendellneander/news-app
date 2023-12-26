@@ -12,26 +12,17 @@ export default class UpdateArticleMysql implements UpdateArticleRepository {
   }
 
   async updateArticle(
-    id: number,
-    {
-      title,
-      content,
-      slug,
-      categoryId,
-    }: { title: string; content: string; slug: string; categoryId: number },
+    slug: string,
+    data: { title: string; content: string; slug: string; categoryId: number },
   ): Promise<Article> {
     await this.db.article.update({
-      where: { id },
-      data: {
-        title,
-        content,
-        categoryId,
-      },
+      where: { slug },
+      data,
     })
 
     const article = await this.db.article.findUnique({
       where: {
-        id,
+        slug,
         deletedAt: null,
       },
       include: {
@@ -58,9 +49,9 @@ export default class UpdateArticleMysql implements UpdateArticleRepository {
     )
     return new Article(
       article.id,
-      title,
-      content,
-      slug,
+      article.title,
+      article.content,
+      article.slug,
       category,
       author,
       article.createdAt.toDateString(),

@@ -11,10 +11,10 @@ export default class GetArticleMysql implements GetArticleRepository {
     this.db = new PrismaClient()
   }
 
-  async getArticle(id: number): Promise<Article> {
+  async getArticle(slug: string): Promise<Article> {
     const article = await this.db.article.findUnique({
       where: {
-        id,
+        slug,
         deletedAt: null,
       },
       include: {

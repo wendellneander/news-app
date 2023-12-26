@@ -1,14 +1,14 @@
 export default class CreateArticleInput {
   constructor(
-    readonly id: number,
+    readonly slug: string,
     readonly title: string,
     readonly content: string,
     readonly categoryId: number,
   ) {}
 
   validate() {
-    if (!this.id) {
-      throw new Error("Id is required.")
+    if (!this.slug) {
+      throw new Error("Slug is required.")
     }
 
     if (!this.title || this.title.length === 0) {

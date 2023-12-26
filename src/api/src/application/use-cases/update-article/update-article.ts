@@ -23,24 +23,23 @@ export default class UpdateArticle {
       throw new Error("Category not found.")
     }
 
-    const author = await this.getAuthorRepository.getAuthor(input.id)
-    if (!author) {
-      throw new Error("Author not found.")
-    }
-
     const slug = this.slugGeneratorService.createSlug(input.title)
 
-    const article = await this.updateArticleRepository.updateArticle(input.id, {
-      title: input.title,
-      content: input.content,
-      slug,
-      categoryId: input.categoryId,
-    })
+    const article = await this.updateArticleRepository.updateArticle(
+      input.slug,
+      {
+        title: input.title,
+        content: input.content,
+        slug,
+        categoryId: input.categoryId,
+      },
+    )
 
     return {
       id: article.id,
       title: article.title,
       content: article.content,
+      slug: article.slug,
       category: {
         id: article.category.id,
         name: article.category.name,

@@ -14,18 +14,13 @@ export interface CreateArticleRepository {
 
 export interface UpdateArticleRepository {
   updateArticle: (
-    id: number,
-    {
-      title,
-      slug,
-      content,
-      categoryId,
-    }: { title: string; content: string; slug: string; categoryId: number },
+    slug: string,
+    data: { title: string; content: string; slug: string; categoryId: number },
   ) => Promise<Article>
 }
 
 export interface DeleteArticleRepository {
-  deleteArticle: (id: number) => Promise<void>
+  deleteArticle: (slug: string) => Promise<void>
 }
 
 export interface ListArticlesRepository {
@@ -33,5 +28,5 @@ export interface ListArticlesRepository {
 }
 
 export interface GetArticleRepository {
-  getArticle: (id: number) => Promise<Article>
+  getArticle: (slug: string) => Promise<Article>
 }

@@ -17,7 +17,7 @@ export default class UpdateArticleController {
   handle = async (req: Request, res: Response): Promise<Response> => {
     try {
       const input = new UpdateArticleInput(
-        parseInt(req.params.id),
+        req.params.slug,
         req.body.title,
         req.body.content,
         req.body.categoryId,

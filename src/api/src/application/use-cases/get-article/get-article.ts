@@ -8,7 +8,7 @@ export default class GetArticle {
   async execute(input: GetArticleInput): Promise<GetArticleOutput> {
     input.validate()
 
-    const article = await this.getArticleRepository.getArticle(input.id)
+    const article = await this.getArticleRepository.getArticle(input.slug)
     if (!article) {
       throw new Error("Article not found.")
     }
@@ -17,6 +17,7 @@ export default class GetArticle {
       id: article.id,
       title: article.title,
       content: article.content,
+      slug: article.slug,
       category: {
         id: article.category.id,
         name: article.category.name,

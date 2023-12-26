@@ -8,10 +8,10 @@ export default class DeleteArticle {
   async execute(input: DeleteArticleInput): Promise<DeleteArticleOutput> {
     input.validate()
 
-    await this.deleteArticleRepository.deleteArticle(input.id)
+    await this.deleteArticleRepository.deleteArticle(input.slug)
 
     return {
-      id: input.id,
+      message: "Article deleted.",
     }
   }
 }

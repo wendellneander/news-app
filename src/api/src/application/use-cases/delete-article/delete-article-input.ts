@@ -1,9 +1,9 @@
 export default class DeleteArticleInput {
-  constructor(readonly id: number) {}
+  constructor(readonly slug: string) {}
 
   validate() {
-    if (!this.id) {
-      throw new Error("Id is required.")
+    if (!this.slug) {
+      throw new Error("Slug is required.")
     }
   }
 }
