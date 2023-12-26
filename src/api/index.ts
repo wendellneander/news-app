@@ -5,6 +5,7 @@ import ListArticlesControllerFactory from "./src/entrypoints/list-articles-contr
 import CreateArticleControllerFactory from "./src/entrypoints/create-article-controller-factory"
 import UpdateArticleControllerFactory from "./src/entrypoints/update-article-controller-factory"
 import DeleteArticleControllerFactory from "./src/entrypoints/delete-article-controller-factory"
+import ListCategoriesControllerFactory from "./src/entrypoints/list-categories-controller-factory"
 
 const app = express()
 const port = process.env.API_PORT
@@ -16,7 +17,9 @@ const getArticleController = GetArticleControllerFactory.create()
 const createArticleController = CreateArticleControllerFactory.create()
 const updateArticleController = UpdateArticleControllerFactory.create()
 const deleteArticleController = DeleteArticleControllerFactory.create()
+const listCategoriesController = ListCategoriesControllerFactory.create()
 
+app.get("/categories", listCategoriesController.handle)
 app.get("/articles", listArticlesController.handle)
 app.get("/article/:id", getArticleController.handle)
 app.post("/article", createArticleController.handle)
