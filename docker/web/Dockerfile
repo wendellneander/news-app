@@ -7,7 +7,7 @@ ENV NODE_ENV=dev
 RUN yarn global add yarn@latest
 RUN yarn global add ts-node@latest
 RUN yarn global add nodemon
-RUN yarn global add vite
+RUN yarn global add vite@4.5.1
 
 # Define workdir
 WORKDIR /app

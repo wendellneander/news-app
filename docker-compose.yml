@@ -2,7 +2,6 @@ version: "3.9"
 
 networks:
   dev:
-    driver: bridge
 
 services:
   database:
@@ -33,7 +32,7 @@ services:
     depends_on:
       - api
     environment:
-      - API_URL=http://api:3001
+      - API_URL=http://api:3001/
     networks:
       - dev
 
