@@ -14,6 +14,7 @@ export default class CreateArticleMysql implements CreateArticleRepository {
   async createArticle(
     title: string,
     content: string,
+    slug: string,
     category: Category,
     author: Author,
   ): Promise<Article> {
@@ -27,6 +28,7 @@ export default class CreateArticleMysql implements CreateArticleRepository {
     const articleInput: Prisma.ArticleUncheckedCreateInput = {
       title,
       content,
+      slug,
       categoryId: category.id,
       authorId: author.id,
     }
@@ -35,6 +37,7 @@ export default class CreateArticleMysql implements CreateArticleRepository {
       article.id,
       title,
       content,
+      slug,
       category,
       author,
       article.createdAt.toDateString(),

@@ -1,20 +1,23 @@
 import CreateArticleMysql from "../../../adapters/create-article-mysql"
 import GetAuthorMysql from "../../../adapters/get-author-mysql"
 import GetCategoryMysql from "../../../adapters/get-category-mysql"
+import SlugService from "../../../adapters/slug-service"
 import CreateArticle from "./create-article"
 import CreateArticleInput from "./create-article-input"
-import { expect, jest, describe, it } from "@jest/globals"
+import { expect, describe, it } from "@jest/globals"
 
 describe("create article", () => {
   it("should create a article", async () => {
     const createArticleRepository = new CreateArticleMysql()
     const getCategoryRepository = new GetCategoryMysql()
     const getAuthorRepository = new GetAuthorMysql()
+    const slugService = new SlugService()
 
     const useCase = new CreateArticle(
       createArticleRepository,
       getCategoryRepository,
       getAuthorRepository,
+      slugService,
     )
 
     const input = new CreateArticleInput(

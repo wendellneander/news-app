@@ -41,6 +41,7 @@ export default class GetArticleMysql implements GetArticleRepository {
       article.id,
       article.title,
       article.content,
+      article.slug,
       category,
       author,
       article.createdAt.toDateString(),

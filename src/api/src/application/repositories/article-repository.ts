@@ -6,6 +6,7 @@ export interface CreateArticleRepository {
   createArticle: (
     title: string,
     content: string,
+    slug: string,
     category: Category,
     author: Author,
   ) => Promise<Article>
@@ -16,9 +17,10 @@ export interface UpdateArticleRepository {
     id: number,
     {
       title,
+      slug,
       content,
       categoryId,
-    }: { title: string; content: string; categoryId: number },
+    }: { title: string; content: string; slug: string; categoryId: number },
   ) => Promise<Article>
 }
 

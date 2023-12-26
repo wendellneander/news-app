@@ -1,6 +1,7 @@
 import { UpdateArticleRepository } from "../../repositories/article-repository"
 import { GetAuthorRepository } from "../../repositories/author-repository"
 import { GetCategoryRepository } from "../../repositories/category-repository"
+import SlugGeneratorService from "../../services/slug-generator"
 import UpdateArticleInput from "./update-article-input"
 import UpdateArticleOutput from "./update-article-ouput"
 
@@ -9,6 +10,7 @@ export default class UpdateArticle {
     private updateArticleRepository: UpdateArticleRepository,
     private getCategoryRepository: GetCategoryRepository,
     private getAuthorRepository: GetAuthorRepository,
+    private slugGeneratorService: SlugGeneratorService,
   ) {}
 
   async execute(input: UpdateArticleInput): Promise<UpdateArticleOutput> {
@@ -26,9 +28,12 @@ export default class UpdateArticle {
       throw new Error("Author not found.")
     }
 
+    const slug = this.slugGeneratorService.createSlug(input.title)
+
     const article = await this.updateArticleRepository.updateArticle(input.id, {
       title: input.title,
       content: input.content,
+      slug,
       categoryId: input.categoryId,
     })
 

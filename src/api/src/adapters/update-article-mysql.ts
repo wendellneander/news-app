@@ -16,8 +16,9 @@ export default class UpdateArticleMysql implements UpdateArticleRepository {
     {
       title,
       content,
+      slug,
       categoryId,
-    }: { title: string; content: string; categoryId: number },
+    }: { title: string; content: string; slug: string; categoryId: number },
   ): Promise<Article> {
     await this.db.article.update({
       where: { id },
@@ -59,6 +60,7 @@ export default class UpdateArticleMysql implements UpdateArticleRepository {
       article.id,
       title,
       content,
+      slug,
       category,
       author,
       article.createdAt.toDateString(),

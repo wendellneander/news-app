@@ -1,6 +1,7 @@
 import { CreateArticleRepository } from "../application/repositories/article-repository"
 import { GetAuthorRepository } from "../application/repositories/author-repository"
 import { GetCategoryRepository } from "../application/repositories/category-repository"
+import SlugGeneratorService from "../application/services/slug-generator"
 import CreateArticle from "../application/use-cases/create-article/create-article"
 import CreateArticleInput from "../application/use-cases/create-article/create-article-input"
 import { Request, Response } from "express"
@@ -10,6 +11,7 @@ export default class CreateArticleController {
     private createArticleRepository: CreateArticleRepository,
     private getCategoryRepository: GetCategoryRepository,
     private getAuthorRepository: GetAuthorRepository,
+    private slugService: SlugGeneratorService,
   ) {}
 
   handle = async (req: Request, res: Response): Promise<Response> => {
@@ -25,6 +27,7 @@ export default class CreateArticleController {
         this.createArticleRepository,
         this.getCategoryRepository,
         this.getAuthorRepository,
+        this.slugService,
       )
 
       const result = await useCase.execute(input)

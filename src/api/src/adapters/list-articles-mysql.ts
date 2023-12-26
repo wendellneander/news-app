@@ -44,6 +44,7 @@ export default class ListArticlesMysql implements ListArticlesRepository {
         article.id,
         article.title,
         article.content,
+        article.slug,
         category,
         author,
         article.createdAt.toDateString(),
