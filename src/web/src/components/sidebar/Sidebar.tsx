@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { SidebarContext } from "../../contexts/sidebar";
 import "./Sidebar.css";
 
 const Sidebar: React.FC = () => {
+  const { showSidebar, toggleSidebar } = useContext(SidebarContext);
   const categories = ["Política", "Esportes", "Entretenimento", "Tecnologia"];
-  const [showSidebar, setShowSidebar] = useState(false);
-  const toggleSidebar = () => {
-    setShowSidebar(!showSidebar);
-  };
 
   return (
     <div>
