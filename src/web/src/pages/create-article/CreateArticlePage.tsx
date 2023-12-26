@@ -2,6 +2,7 @@ import React from "react";
 import "./CreateArticlePage.css";
 import Categories from "../../components/categories";
 import Header from "../../components/header";
+import ArticleForm from "../../components/article-form";
 
 const CreateArticlePage: React.FC = () => {
   return (
@@ -9,7 +10,7 @@ const CreateArticlePage: React.FC = () => {
       <Header />
       <Categories />
 
-      <p>CreateArticlePage</p>
+      <ArticleForm onSubmit={() => {}} />
     </>
   );
 };

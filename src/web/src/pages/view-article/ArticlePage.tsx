@@ -16,6 +16,11 @@ const ArticlePage: React.FC = () => {
           <p className="date">createdAt</p>
         </div>
         <p className="article-content">Content</p>
+
+        <div className="actions">
+          <button>Editar</button>
+          <button>Excluir</button>
+        </div>
       </div>
     </>
   );
