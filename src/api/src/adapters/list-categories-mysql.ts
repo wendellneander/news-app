@@ -17,7 +17,7 @@ export default class ListCategoriesMysql implements ListCategoriesRepository {
         deletedAt: null,
       },
       orderBy: {
-        id: "desc",
+        name: "asc",
       },
     })
 

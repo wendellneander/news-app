@@ -12,6 +12,11 @@ const app = express()
 const port = process.env.API_PORT
 
 app.use(cors())
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  }),
+)
 app.use(bodyParser.json())
 
 const listArticlesController = ListArticlesControllerFactory.create()

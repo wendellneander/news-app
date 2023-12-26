@@ -18,7 +18,8 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 const CategoriesProvider = ({ children }: { children: React.ReactNode }) => {
   const { data, error, isLoading } = useSWR(
     `http://localhost:3001/categories?page=0&pageSize=100`,
-    fetcher
+    fetcher,
+    { errorRetryCount: 3 }
   );
   const value = useMemo(
     () => ({ categories: data?.categories || [], error, isLoading }),

@@ -1,4 +1,8 @@
-import { CreateArticleRepository } from "../application/repositories/article-repository"
+import {
+  CreateArticleRepository,
+  GetArticleRepository,
+  UpdateArticleRepository,
+} from "../application/repositories/article-repository"
 import { GetAuthorRepository } from "../application/repositories/author-repository"
 import { GetCategoryRepository } from "../application/repositories/category-repository"
 import SlugGeneratorService from "../application/services/slug-generator"
@@ -9,6 +13,8 @@ import { Request, Response } from "express"
 export default class CreateArticleController {
   constructor(
     private createArticleRepository: CreateArticleRepository,
+    private updateArticleRepository: UpdateArticleRepository,
+    private getArticleRepository: GetArticleRepository,
     private getCategoryRepository: GetCategoryRepository,
     private getAuthorRepository: GetAuthorRepository,
     private slugService: SlugGeneratorService,
@@ -19,19 +25,21 @@ export default class CreateArticleController {
       const input = new CreateArticleInput(
         req.body.title,
         req.body.content,
-        req.body.categoryId,
-        req.body.authorId,
+        parseInt(req.body.categoryId),
+        parseInt(req.body.authorId),
       )
 
       const useCase = new CreateArticle(
         this.createArticleRepository,
+        this.updateArticleRepository,
+        this.getArticleRepository,
         this.getCategoryRepository,
         this.getAuthorRepository,
         this.slugService,
       )
 
       const result = await useCase.execute(input)
-      return res.status(201).send(result)
+      return res.status(400).send(result)
     } catch (e: any) {
       console.log("ERROR (CreateArticleController):", e)
       return res.status(400).send({

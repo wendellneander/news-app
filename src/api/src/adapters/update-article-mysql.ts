@@ -17,7 +17,7 @@ export default class UpdateArticleMysql implements UpdateArticleRepository {
   ): Promise<Article> {
     await this.db.article.update({
       where: { slug },
-      data,
+      data: { ...data, createdAt: undefined },
     })
 
     const article = await this.db.article.findUnique({

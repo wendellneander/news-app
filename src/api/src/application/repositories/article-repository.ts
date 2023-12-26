@@ -28,5 +28,5 @@ export interface ListArticlesRepository {
 }
 
 export interface GetArticleRepository {
-  getArticle: (slug: string) => Promise<Article>
+  getArticle: (slug: string, deleted?: boolean) => Promise<Article>
 }

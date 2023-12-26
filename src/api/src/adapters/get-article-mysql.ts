@@ -11,12 +11,12 @@ export default class GetArticleMysql implements GetArticleRepository {
     this.db = new PrismaClient()
   }
 
-  async getArticle(slug: string): Promise<Article> {
+  async getArticle(slug: string, deleted?: boolean): Promise<Article> {
+    const whereNotDeleted = { slug, deletedAt: null }
+    const whereDeleted = { slug, NOT: { deletedAt: null } }
+
     const article = await this.db.article.findUnique({
-      where: {
-        slug,
-        deletedAt: null,
-      },
+      where: deleted ? whereDeleted : whereNotDeleted,
       include: {
         author: true,
         category: true,

@@ -7,7 +7,7 @@ async function main() {
   await prisma.category.upsert({
     where: { id: 1 },
     update: {},
-    create: { id: 1, name: "World" },
+    create: { id: 1, name: "General" },
   })
   await prisma.category.upsert({
     where: { id: 2 },
@@ -18,6 +18,16 @@ async function main() {
     where: { id: 3 },
     update: {},
     create: { id: 3, name: "Entertainment" },
+  })
+  await prisma.category.upsert({
+    where: { id: 4 },
+    update: {},
+    create: { id: 4, name: "Sports" },
+  })
+  await prisma.category.upsert({
+    where: { id: 5 },
+    update: {},
+    create: { id: 5, name: "World" },
   })
 
   // create default authors
@@ -38,10 +48,12 @@ async function main() {
   })
 
   // create default articles
+  await prisma.article.deleteMany()
+
   const article1: Prisma.ArticleUncheckedCreateInput = {
     title: "Fusce ullamcorper consectetur",
     content:
-      "Fusce ullamcorper consectetur elit quis convallis. Curabitur nec odio aliquet, fermentum elit vel, efficitur orci. Integer placerat arcu at tellus tincidunt, vitae commodo ipsum commodo. Ut facilisis orci a felis luctus, ac convallis felis fermentum. Duis eget leo eget nunc facilisis lacinia ut a risus.",
+      "Fusce ullamcorper consectetur elit quis convallis. Curabitur nec odio aliquet, fermentum elit vel, efficitur orci. Integer placerat arcu at tellus tincidunt, vitae commodo ipsum commodo. Ut facilisis orci a felis luctus, ac convallis felis fermentum. Duis eget leo eget nunc facilisis lacinia ut a risus. Fusce ullamcorper consectetur elit quis convallis. Curabitur nec odio aliquet, fermentum elit vel, efficitur orci. Integer placerat arcu at tellus tincidunt, vitae commodo ipsum commodo. Ut facilisis orci a felis luctus, ac convallis felis fermentum. Duis eget leo eget nunc facilisis lacinia ut a risus.",
     slug: "fusce-ullamcorper-consectetur",
     categoryId: 1,
     authorId: 1,

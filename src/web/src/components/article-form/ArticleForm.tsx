@@ -1,26 +1,42 @@
 import React, { useState } from "react";
 import "./ArticleForm.css";
+import { useCategoriesContext } from "../../contexts/categories";
+
+type ChangeEvents = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
 interface ArticleFormProps {
-  onSubmit: (data: {
-    title: string;
-    content: string;
-    category: string;
-  }) => void;
+  isLoading: boolean;
+  error: TypeError;
+  onSubmit: (data: ArticleFormState) => void;
 }
 
-const ArticleForm: React.FC<ArticleFormProps> = ({ onSubmit }) => {
-  const [formData, setFormData] = useState({
+interface ArticleFormState {
+  title: string;
+  content: string;
+  categoryId: number | null;
+  authorId: number | null;
+}
+
+const ArticleForm: React.FC<ArticleFormProps> = ({
+  onSubmit,
+  isLoading,
+  error,
+}) => {
+  console.log("error", error);
+  const {
+    categories,
+    error: categoriesError,
+    isLoading: isLoadingCategories,
+  } = useCategoriesContext();
+
+  const [formData, setFormData] = useState<ArticleFormState>({
     title: "",
     content: "",
-    category: "",
+    categoryId: null,
+    authorId: 1,
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
+  const handleChange = (e: React.ChangeEvent<ChangeEvents>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -28,20 +44,33 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ onSubmit }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit(formData);
-    setFormData({ title: "", content: "", category: "" });
+    // setFormData({
+    //   title: "",
+    //   content: "",
+    //   categoryId: null,
+    //   authorId: 1,
+    // });
   };
 
   return (
     <form className="news-form" onSubmit={handleSubmit}>
+      {error && <p>{error.message}</p>}
+      {categoriesError && <p>{categoriesError.message}</p>}
+
       <select
-        name="category"
-        value={formData.category}
+        name="categoryId"
+        value={formData.categoryId || ""}
         onChange={handleChange}
         required
       >
-        <option value="">Selecione uma categoria</option>
-        <option value="Ciência">Ciência</option>
-        <option value="Tecnologia">Tecnologia</option>
+        <option value="">
+          {isLoadingCategories ? "Loading..." : "Selecione uma categoria"}
+        </option>
+        {categories.map((category) => (
+          <option key={category.id} value={category.id}>
+            {category.name}
+          </option>
+        ))}
       </select>
       <input
         type="text"
@@ -58,7 +87,9 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ onSubmit }) => {
         onChange={handleChange}
         required
       ></textarea>
-      <button type="submit">Publicar Notícia</button>
+      <button disabled={isLoading} type="submit">
+        {isLoading ? "Publicando..." : "Publicar Notícia"}
+      </button>
     </form>
   );
 };

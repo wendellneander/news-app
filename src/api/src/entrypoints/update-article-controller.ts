@@ -20,7 +20,7 @@ export default class UpdateArticleController {
         req.params.slug,
         req.body.title,
         req.body.content,
-        req.body.categoryId,
+        parseInt(req.body.categoryId),
       )
 
       const useCase = new UpdateArticle(
