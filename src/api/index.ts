@@ -26,12 +26,12 @@ const updateArticleController = UpdateArticleControllerFactory.create()
 const deleteArticleController = DeleteArticleControllerFactory.create()
 const listCategoriesController = ListCategoriesControllerFactory.create()
 
+app.patch("/article/:slug", updateArticleController.handle)
+app.delete("/article/:slug", deleteArticleController.handle)
+app.post("/article", createArticleController.handle)
 app.get("/categories", listCategoriesController.handle)
 app.get("/articles", listArticlesController.handle)
 app.get("/article/:slug", getArticleController.handle)
-app.post("/article", createArticleController.handle)
-app.patch("/article/:slug", updateArticleController.handle)
-app.delete("/article/:slug", deleteArticleController.handle)
 
 app.get("/", (_req, res) => res.status(200).send())
 

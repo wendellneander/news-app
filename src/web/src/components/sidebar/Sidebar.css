@@ -27,6 +27,11 @@ button {
 .sidebar li {
   padding: 16px;
   border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.sidebar li:hover {
+  background-color: #dcdcdc;
 }
 
 .sidebar.show {

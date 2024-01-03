@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import { SidebarContext } from "../../contexts/sidebar";
-import "./Sidebar.css";
 import { useCategoriesContext } from "../../contexts/categories";
+import { useNavigate } from "react-router-dom";
+import "./Sidebar.css";
 
 const Sidebar: React.FC = () => {
   const { showSidebar, toggleSidebar } = useContext(SidebarContext);
   const { categories, error, isLoading } = useCategoriesContext();
-
+  const navigate = useNavigate();
   return (
     <div>
       <div className={`sidebar ${showSidebar ? "show" : ""}`}>
@@ -15,12 +16,16 @@ const Sidebar: React.FC = () => {
         </button>
         <ul>
           {isLoading && <p>Loading...</p>}
-          {error && <p>{error.message}</p>}
+          {error && <p className="error">{error.message}</p>}
           {categories &&
             !isLoading &&
             !error &&
             categories.map((category) => (
-              <li key={category.id} className="sidebar-item">
+              <li
+                onClick={() => navigate(`/?categoryId=${category.id}`)}
+                key={category.id}
+                className="sidebar-item"
+              >
                 {category.name}
               </li>
             ))}

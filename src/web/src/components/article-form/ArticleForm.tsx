@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./ArticleForm.css";
 import { useCategoriesContext } from "../../contexts/categories";
+import Article from "../../types/article";
 
 type ChangeEvents = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
@@ -8,6 +9,8 @@ interface ArticleFormProps {
   isLoading: boolean;
   error: TypeError;
   onSubmit: (data: ArticleFormState) => void;
+  submitText: string;
+  article?: Article;
 }
 
 interface ArticleFormState {
@@ -21,8 +24,9 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
   onSubmit,
   isLoading,
   error,
+  article,
+  submitText,
 }) => {
-  console.log("error", error);
   const {
     categories,
     error: categoriesError,
@@ -30,9 +34,9 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
   } = useCategoriesContext();
 
   const [formData, setFormData] = useState<ArticleFormState>({
-    title: "",
-    content: "",
-    categoryId: null,
+    title: article?.title || "",
+    content: article?.content || "",
+    categoryId: article?.category.id || null,
     authorId: 1,
   });
 
@@ -44,17 +48,17 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit(formData);
-    // setFormData({
-    //   title: "",
-    //   content: "",
-    //   categoryId: null,
-    //   authorId: 1,
-    // });
+    setFormData({
+      title: "",
+      content: "",
+      categoryId: null,
+      authorId: 1,
+    });
   };
 
   return (
     <form className="news-form" onSubmit={handleSubmit}>
-      {error && <p>{error.message}</p>}
+      {error && <p className="error">{error.message}</p>}
       {categoriesError && <p>{categoriesError.message}</p>}
 
       <select
@@ -64,7 +68,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
         required
       >
         <option value="">
-          {isLoadingCategories ? "Loading..." : "Selecione uma categoria"}
+          {isLoadingCategories ? "Loading..." : "Choose a category"}
         </option>
         {categories.map((category) => (
           <option key={category.id} value={category.id}>
@@ -76,19 +80,19 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
         type="text"
         name="title"
         value={formData.title}
-        placeholder="Título"
+        placeholder="Title"
         onChange={handleChange}
         required
       />
       <textarea
         name="content"
         value={formData.content}
-        placeholder="Conteúdo"
+        placeholder="Content"
         onChange={handleChange}
         required
       ></textarea>
       <button disabled={isLoading} type="submit">
-        {isLoading ? "Publicando..." : "Publicar Notícia"}
+        {isLoading ? "Sending..." : submitText}
       </button>
     </form>
   );

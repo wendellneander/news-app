@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     element: <CreateArticlePage />,
   },
   {
-    path: "/article/:id/edit",
+    path: "/article/:slug/edit",
     element: <UpdateArticlePage />,
   },
   {

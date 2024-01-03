@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useMemo } from "react";
 import Category from "../../types/category";
 import useSWR from "swr";
+import axios from "../../plugins/axios";
 
 interface CategoriesContextProps {
   categories: Category[];
@@ -9,20 +10,24 @@ interface CategoriesContextProps {
   isLoading: boolean;
 }
 
+interface GetCategoriesResponse {
+  categories: Category[];
+}
+
 const CategoriesContext = createContext<CategoriesContextProps>(
   {} as CategoriesContextProps
 );
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+const fetcher = (url: string) => axios.get<GetCategoriesResponse>(url);
 
 const CategoriesProvider = ({ children }: { children: React.ReactNode }) => {
   const { data, error, isLoading } = useSWR(
-    `http://localhost:3001/categories?page=0&pageSize=100`,
+    `/categories?page=0&pageSize=100`,
     fetcher,
     { errorRetryCount: 3 }
   );
   const value = useMemo(
-    () => ({ categories: data?.categories || [], error, isLoading }),
+    () => ({ categories: data?.data.categories || [], error, isLoading }),
     [data, error, isLoading]
   );
 

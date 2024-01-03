@@ -1,9 +1,12 @@
-import React, { useState } from "react";
-import "./CreateArticlePage.css";
+import React from "react";
 import Categories from "../../components/categories";
 import Header from "../../components/header";
 import ArticleForm from "../../components/article-form";
 import useSWRMutation from "swr/mutation";
+import axios from "../../plugins/axios";
+import Article from "../../types/article";
+import { useNavigate } from "react-router-dom";
+import "./CreateArticlePage.css";
 
 interface CreateArticleData {
   title: string;
@@ -16,22 +19,12 @@ async function createArticleRequest(
   url: string,
   { arg }: { arg: CreateArticleData }
 ) {
-  await fetch(url, {
-    method: "POST",
-    body: JSON.stringify(arg),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => res.json())
-    .catch((e) => {
-      console.log("ERROR asdasd: ", e);
-    });
+  await axios.post<Article>(url, arg);
 }
 
 const CreateArticlePage: React.FC = () => {
-  const url = `http://localhost:3001/article`;
-  const [createError] = useState();
+  const navigate = useNavigate();
+  const url = `/article`;
   const { trigger, isMutating, error } = useSWRMutation(
     url,
     createArticleRequest
@@ -39,6 +32,8 @@ const CreateArticlePage: React.FC = () => {
 
   const onSubmit = async (data: CreateArticleData) => {
     await trigger(data);
+
+    navigate("/");
   };
 
   return (
@@ -46,9 +41,10 @@ const CreateArticlePage: React.FC = () => {
       <Header />
       <Categories />
       <ArticleForm
-        error={error || createError}
+        error={error}
         isLoading={isMutating}
         onSubmit={onSubmit}
+        submitText="Create Article"
       />
     </>
   );

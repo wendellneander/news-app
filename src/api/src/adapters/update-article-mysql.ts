@@ -15,6 +15,21 @@ export default class UpdateArticleMysql implements UpdateArticleRepository {
     slug: string,
     data: { title: string; content: string; slug: string; categoryId: number },
   ): Promise<Article> {
+    const currentArticle = await this.db.article.findUnique({
+      where: {
+        slug,
+        deletedAt: null,
+      },
+      include: {
+        author: true,
+        category: true,
+      },
+    })
+
+    if (!currentArticle) {
+      throw new Error("Article not found.")
+    }
+
     await this.db.article.update({
       where: { slug },
       data: { ...data, createdAt: undefined },
@@ -22,7 +37,7 @@ export default class UpdateArticleMysql implements UpdateArticleRepository {
 
     const article = await this.db.article.findUnique({
       where: {
-        slug,
+        slug: data.slug,
         deletedAt: null,
       },
       include: {

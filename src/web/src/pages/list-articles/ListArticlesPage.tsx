@@ -12,7 +12,7 @@ const ListArticlesPage: React.FC = () => {
       <Header />
       <Categories />
       {isLoading && <p>Loading...</p>}
-      {error && <p>{error.message}</p>}
+      {error && <p className="error">{error.message}</p>}
       {!isLoading && !error && <ArticlesGrid articles={articles} />}
     </>
   );
