@@ -2,6 +2,7 @@ export default class ListArticlesInput {
   constructor(
     readonly page: number,
     readonly pageSize: number,
+    readonly categoryId?: number,
   ) {}
 
   validate() {

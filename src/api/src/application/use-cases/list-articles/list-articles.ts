@@ -8,9 +8,10 @@ export default class ListArticles {
   async execute(input: ListArticlesInput): Promise<ListArticlesOutput> {
     input.validate()
 
-    const articles = await this.listArticleRepository.listArticles(
+        const articles = await this.listArticleRepository.listArticles(
       input.page,
       input.pageSize,
+      input.categoryId,
     )
 
     return {

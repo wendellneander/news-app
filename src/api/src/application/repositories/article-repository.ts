@@ -24,7 +24,11 @@ export interface DeleteArticleRepository {
 }
 
 export interface ListArticlesRepository {
-  listArticles: (page: number, pageSize: number) => Promise<Article[]>
+  listArticles: (
+    page: number,
+    pageSize: number,
+    categoryId?: number,
+  ) => Promise<Article[]>
 }
 
 export interface GetArticleRepository {

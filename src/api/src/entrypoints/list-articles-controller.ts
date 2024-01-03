@@ -8,9 +8,10 @@ export default class ListArticlesController {
 
   handle = async (req: Request, res: Response): Promise<Response> => {
     try {
-      const input = new ListArticlesInput(
+        const input = new ListArticlesInput(
         parseInt(req.query.page as string),
         parseInt(req.query.pageSize as string),
+        parseInt(req.query.categoryId as string),
       )
       const useCase = new ListArticles(this.listArticleRepository)
       const result = await useCase.execute(input)

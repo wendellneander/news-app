@@ -11,13 +11,18 @@ export default class ListArticlesMysql implements ListArticlesRepository {
     this.db = new PrismaClient()
   }
 
-  async listArticles(page: number, pageSize: number): Promise<Article[]> {
+  async listArticles(
+    page: number,
+    pageSize: number,
+    categoryId?: number,
+  ): Promise<Article[]> {
+    const where = { deletedAt: null }
+    const whereCategory = { deletedAt: null, categoryId }
+
     const articles = await this.db.article.findMany({
       skip: page * pageSize,
       take: pageSize,
-      where: {
-        deletedAt: null,
-      },
+      where: categoryId ? whereCategory : where,
       include: {
         author: true,
         category: true,
